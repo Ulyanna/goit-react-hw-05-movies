@@ -10,8 +10,16 @@ border: 1px solid black;
 `
 
 export const HeaderText = styled.h1`
-margin-bottom: 30px;
+margin-right: 15px;
 color: black;
+`
+export const HeaderWrapper = styled.div`
+display: flex;
+align-items: baseline;
+margin-bottom: 30px;
+`
+export const ReleaseData = styled.p`
+font-size: 22px;
 `
 
 export const HeaderSecondText = styled.h2`

@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import { BASE_URL_IMG } from "../../services/MoviesApi"
-import {Section, ImgWrapper,HeaderText,HeaderSecondText,WrapperScoreBlock,UserScore,ItemInfo,Overvie} from "./MovieDetails.styled"
+import {Section, ImgWrapper,HeaderText,HeaderSecondText,WrapperScoreBlock,UserScore,ItemInfo,Overvie,HeaderWrapper,ReleaseData} from "./MovieDetails.styled"
 import defIm from "../../image/commingSoon.jpg"
 
 
 
 export const MovieDetails = ({movie}) => {
 const {original_title,vote_average,overview
-        , genres, belongs_to_collection } = movie
-    const userScore = Math.round(vote_average * 10)
+        , genres, belongs_to_collection, release_date
+ } = movie
+  const userScore = Math.round(vote_average * 10)
+  const realeaseData = release_date.slice(0, 4)
 
     const CheckImages = () => {
         if (!belongs_to_collection && !movie.poster_path) {
@@ -29,11 +31,13 @@ const {original_title,vote_average,overview
         
 
 }
-
+console.log(movie)
     return <Section>
         <ImgWrapper>{CheckImages()}</ImgWrapper>       
-        <div>
-             <HeaderText>{original_title}</HeaderText>
+      <div>
+        <HeaderWrapper> <HeaderText>{original_title}</HeaderText>
+          <ReleaseData> ({realeaseData})</ReleaseData>
+        </HeaderWrapper>
         <ul>
             <ItemInfo>
                     <WrapperScoreBlock>
