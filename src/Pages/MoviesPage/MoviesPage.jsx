@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from "react-router-dom";
 import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { GrSearch } from "react-icons/gr";
 import { getMovieSearch } from "../../services/MoviesApi"
-import {MoviesGallery} from "../../components/MoviesGallery/MoviesGallery"
+import { MoviesGallery } from "../../components/MoviesGallery/MoviesGallery"
+import {Wrapper,Button,Input} from "./MoviesPage.styled"
 
-export const MoviesPage = () => {
+const MoviesPage = () => {
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
    const searchQuery = searchParams.get('query');
@@ -17,8 +21,12 @@ export const MoviesPage = () => {
     }
          async function fetchSearchMovies() {
       try {
-          const moviesForSearch = await getMovieSearch(searchQuery);
-        console.log(moviesForSearch)
+        const moviesForSearch = await getMovieSearch(searchQuery);
+        if (moviesForSearch.total_results === 0) {
+          toast.error("Sorry, nothing found!", {
+        position: toast.POSITION.TOP_CENTER
+      })
+        }
         setMovies(moviesForSearch.results)
        
       } catch (error) {
@@ -34,27 +42,21 @@ const handlerChange = event => {
     };
     const handlerOnSubmit = event => {
     event.preventDefault();
-    // if (value.trim() === '') {
-    //   toast.info("Please enter something !", {
-    //     position: toast.POSITION.TOP_CENTER
-    //   });
-    //   return;
-    // }
-      if (query.trim() === '') {
-      alert("Please enter something !")
+    if (query.trim() === '') {
+      toast.info("Please enter something !", {
+        position: toast.POSITION.TOP_CENTER
+      });
       return;
     }
   setSearchParams({query})
     setQuery("");
-    console.log(query)
   };
   return (
       <>
-        <header>
+        <Wrapper>
         <form onSubmit={handlerOnSubmit}>
-          <button type="submit">
-          </button>
-          <input
+
+          <Input
             type="text"
             autoComplete="off"
             autoFocus
@@ -62,9 +64,14 @@ const handlerChange = event => {
             value={query}
             onChange={handlerChange}
           />
+ <Button type="submit"><GrSearch /> Search
+          </Button>
      </form>
-      </header>
-      {movies && <MoviesGallery movies={ movies} />}
+      </Wrapper>
+      {movies && <MoviesGallery movies={movies} />}
+      <ToastContainer/>
       </>
     )
 }
+
+export default MoviesPage

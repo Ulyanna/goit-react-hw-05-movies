@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_KEY = "cadd79f1a1e49af0faca0dd1324eca3c"
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+ export const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w300'
 
 export const getTrending = async () => {
     const response = await axios.get(`/trending/movie/day?api_key=${API_KEY}`)

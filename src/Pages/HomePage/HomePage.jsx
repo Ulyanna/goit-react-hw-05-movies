@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { getTrending } from "../../services/MoviesApi"
 import {MoviesGallery} from "../../components/MoviesGallery/MoviesGallery"
+import { Container, Headtext } from "./HomePage.styled"
 
-export const HomePage = () =>{
+ const HomePage = () =>{
     const [movies, setMovies] = useState(null);
 
 
@@ -11,7 +12,6 @@ export const HomePage = () =>{
          async function fetchTrendingMovies() {
       try {
           const moviesArr = await getTrending();
-          console.log(moviesArr.data.results)
         setMovies(moviesArr.data.results);
        
       } catch (error) {
@@ -24,6 +24,7 @@ export const HomePage = () =>{
   
 
     
-    return (<>{movies && <MoviesGallery movies={movies } />}</>)
+    return (<>{movies && <Container><Headtext>Trending today:</Headtext><MoviesGallery movies={movies } /></Container> }</>)
 
 }
+export default HomePage

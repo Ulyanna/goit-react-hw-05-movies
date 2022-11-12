@@ -1,14 +1,25 @@
 import React from 'react';
-import {MoviesGalleryItem} from "../MoviesGalleryItem/MoviesGalleryItem"
+import PropTypes from 'prop-types';
+import { MoviesGalleryItem } from "../MoviesGalleryItem/MoviesGalleryItem"
+import {List} from "./MoviesGallery.styled"
+
 export const MoviesGallery = ({movies}) => {
     return (
-        <ul>
-            {movies.map(({id,original_title
+        <List>
+            {movies.map(({id,original_title, poster_path
+
             }) => {
-                return <MoviesGalleryItem id={id} original_title={original_title} key={id } />
+                return <MoviesGalleryItem id={id} original_title={original_title} key={id} poster_path
+
+={ poster_path
+
+} />
 }) }
-        </ul>
+        </List>
     )
     
 }
 
+MoviesGallery.propTypes = {
+  movies: PropTypes.array,
+};
