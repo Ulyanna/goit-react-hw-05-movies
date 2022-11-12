@@ -11,7 +11,7 @@ const MoviedetailsPage = () => {
   const { movieId } = useParams()
   const [movie, setMovie] = useState(null)
   const location = useLocation()
-  const backLinkHref = location.state?.from ?? "/movies";
+  // const backLinkHref = location.state?.from ?? "/";
 
      useEffect(() => {
          async function fetchMovieDetails() {
@@ -29,16 +29,16 @@ const MoviedetailsPage = () => {
      }, [movieId])
   return (
     <main>
-      <BackLink to={backLinkHref}>Go back</BackLink>
+      <BackLink to={location.state?.from ?? "/"}>Go back</BackLink>
       {movie && <MovieDetails movie={movie} />}
       <Section>
         <HeaderText>Additional information</HeaderText>
          <List>
             <Item>
-                <Link to={"cast"}>Cast</Link>
+                <Link to={"cast"} state={{from: location.state?.from ?? '/'}}>Cast</Link>
             </Item>
             <Item>
-                <Link to={"reviews"}>Reviews</Link>
+                <Link to={"reviews"} state={{from: location.state?.from ?? '/'}}>Reviews</Link>
             </Item>
         </List>
               <Suspense fallback="">
